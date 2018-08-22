@@ -1,12 +1,6 @@
 var source = document.getElementById("new-result-template").innerHTML;
 var template = Handlebars.compile(source);
 
-// var context = {
-//     location: Box.cityName + Box.country,
-//     temp: box.temp + box.feelslike,
-//     condition: box.condition + box.humidity
-// }
-
 class AjaxApi {
 
     fetch(cityName) {
@@ -54,7 +48,7 @@ const WeatherChat = function () {
                 temp_c: data.current.temp_c + '°C',
                 condition_txt: data.current.condition.text,
                 condition_img: data.current.condition.icon,
-                humidity: data.current.humidity,
+                humidity: data.current.humidity +'%',
                 feelslike: data.current.feelslike_c + '°C'
             };
             weatherBoxes.push(new WeatherBox(search))

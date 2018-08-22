@@ -11,6 +11,7 @@
 
 <body>
     <div class="container">
+        <a href='https://www.freepik.com/free-vector/abstract-background-with-a-watercolor-texture_886474.htm'></a>
         <h1>Weather search</h1>
         <div class="search-bar">
             <input type="text" class="search-input" placeholder="Write name of city here">
@@ -23,24 +24,29 @@
 
     <script type="text/javascript" src="jquery/dist/jquery.min.js"></script>
     <script id="new-result-template" type="text/javascript" src="handlebars/dist/handlebars.min.js">
-        <div class="result-box">
+        <div>
             {{#each weatherBoxes}}
-            <div class="cityName temp"> {{ cityName }}, {{country}}</div>
-            <div class="temp"> temp(onright) + feel like</div>
-            <div class="condition"> {{condition}} 
-                <img src={{condition_img}} />
-            </div>
-            {{/ each}}
-            <div id="comments">
-                {{#each comments}}
-                    <div class="comment-container">
-                    <ol>
-                        <li>{{ text }}</li>
-                    </ol>
-                </div>
-                {{/ each}}
+        <div class="result-box">
+                <div class="cityName temp"> {{ cityName }}, {{ country }}</div>
+                <div class="temp"> {{ temp_c }} {{ feelslike }}</div>
+                <div class="condition">
+                    <img src={{ condition_img }} />
+                    <br> {{ condition_txt }}
+                        <br> Humidity: {{ humidity }} </div>
+                        <input type="text" class="add-comment" placeholder="Add comment"/>
+                        <button class="add-comments">Add</button>
         </div>
-        </div>
+                    {{/ each}}
+    </div>
+                <div id="comments">
+                    {{#each comments}}
+                <div class="comment-container">
+                        <ol>
+                            <li>{{ text }}</li>
+                        </ol>
+                    </div>
+                    {{/ each}}
+                        </div>
     </script>
     <script src="main.js" type="module"></script>
 
