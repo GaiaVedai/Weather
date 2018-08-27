@@ -21,7 +21,7 @@ const WeatherChat = function () {
     // let STORAGE_ID = WeatherSearches;
     let currentID = 0;
     const weatherBoxes = []
-
+    // const comments = []
 
     return {
         // function saveToLocalStorage() {
@@ -58,21 +58,23 @@ const WeatherChat = function () {
         generateHTML() {
             const newHTML = template({ weatherBoxes })
             $('.results-container').append(newHTML)
+           
         },
 
         renderBoxes() {
             $('.results-container').empty();
 
             this.generateHTML()
+        },
+        addComment(text, id) {
+        
+            for (let i=0; i<weatherBoxes.length; i++){
+                if (id === weatherBoxes[i].searchID){
+                    weatherBoxes[i].comments.push(new Comment(text))
+                }
+            }
+            this.renderBoxes()
         }
-        // function addComment(text, id) {
-        //     comments = [];//change
-
-        //     return newComment = {
-        //         text: text
-        //     }
-        //     this.comments.push(newComment);
-        // },
 
         // function removeComment() {
         //     comments.splice(this.newComment);
@@ -91,6 +93,8 @@ class WeatherBox {
         this.condition_img = condition_img
         this.humidity = humidity
         this.feelslike = feelslike
+        
+        this.comments = [];
     }
 
     getSearchHTML() {
@@ -100,13 +104,12 @@ class WeatherBox {
 
 }
 
-class Comment extends WeatherBox {
-    constructor(text, id, comments) {
-        super(id, comments)
+class Comment {
+    constructor(commentText, searchID) {
+        this.commentText = commentText
+       
     }
-    getCommentHTML() {
 
-    }
 };
 
 const app = new WeatherChat();
@@ -119,8 +122,9 @@ $('.search').on('click', function () {
     api.fetch(cityNameInput);
 })
 
-$('add-comment').on('click', function (text, id) {
-    $(this)('.comment-input').val() = text;
-    app.addComment(text, id)
+$('.results-container').on('click', '.add-comment', function () {
+    let commentText = $('.comment-input').val();
+    let id = $(this).closest('.result-box').data().id
+    app.addComment(commentText, id)
 })
 
